@@ -1,0 +1,41 @@
+{
+  "name": "dom-text-extraction",
+  "version": "0.1.0",
+  "description": "Extract readable article content and metadata from HTML (Defuddle-powered, Obsidian Clipper–style pipeline)",
+  "license": "MIT",
+  "author": "Glen Stampoultzis",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "defuddle": "^0.18.1"
+  },
+  "peerDependencies": {
+    "linkedom": ">=0.16.0"
+  },
+  "peerDependenciesMeta": {
+    "linkedom": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "linkedom": "^0.18.0",
+    "typescript": "^6.0.3"
+  }
+}
