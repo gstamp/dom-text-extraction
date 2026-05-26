@@ -2,7 +2,7 @@
 
 Extract readable article content and metadata from HTML (Defuddle-powered).
 
-This library was ported from Obsidian Clipper.
+This library was ported from the text extraction pipeline in Obsidian Clipper.
 
 ## Install
 
