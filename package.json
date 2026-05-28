@@ -20,7 +20,8 @@
     "build": "tsc",
     "watch": "tsc --watch",
     "typecheck": "tsc --noEmit",
-    "test": "npm run build && node --test"
+    "test": "npm run build && node --test",
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "defuddle": "^0.18.1"
