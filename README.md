@@ -69,6 +69,25 @@ const text = await extractPlainTextFromHtml(html, {
 console.log(text);
 ```
 
+#### Furigana (Japanese ruby text)
+
+Plain-text extraction supports `<ruby>` / `<rt>` furigana via `options.furigana` (also accepted by `htmlFragmentToPlainText` as its third argument). Default is `STRIP`.
+
+| Mode | Description | Example for `<ruby>漢<rt>かん</rt>字<rt>じ</rt></ruby>` |
+|------|-------------|--------------------------------------------------------|
+| `STRIP` (default) | Omit furigana annotations | `漢字` |
+| `INCLUDE_IN_BRACES` | Keep furigana in braces after the base text | `漢{かん}字{じ}` |
+| `AS_IS` | Inline ruby text as extracted from the DOM | `漢かん字じ` |
+
+```ts
+const text = await extractPlainTextFromHtml(html, {
+  url,
+  documentParser: createLinkedomDocumentParser(parseHTML),
+  parseAsyncTimeoutMs: null,
+  furigana: 'INCLUDE_IN_BRACES',
+});
+```
+
 ## API
 
 - `extractWebContentFromHtml(html, options)`
@@ -77,10 +96,12 @@ console.log(text);
   - Same pipeline, but starts from an existing `Document`.
 - `extractPlainTextFromHtml(html, options)` / `extractPlainTextFromDocument(doc, options)`
   - Readable article body as plain text (skips markdown conversion).
+  - `options.furigana`: `STRIP` (default), `INCLUDE_IN_BRACES`, or `AS_IS` — controls `<ruby>` / `<rt>` handling (see above).
 - `extractText(html, url, documentParser?)`
   - Shorthand for `extractPlainTextFromHtml` (legacy positional args).
-- `htmlFragmentToPlainText(html, documentParser)`
+- `htmlFragmentToPlainText(html, documentParser, options?)`
   - Convert an HTML fragment to normalized plain text.
+  - `options.furigana`: same furigana modes as plain-text extraction.
 - `createLinkedomDocumentParser(parseHTML)`
   - Helper to build a `DocumentParser` using `linkedom`’s `parseHTML`.
 
@@ -88,3 +109,13 @@ console.log(text);
 
 - This library **does not fetch URLs**; you provide `html`.
 - In Node, set `parseAsyncTimeoutMs: null` (Defuddle’s async parsing is mainly for browsers).
+
+## CHANGELOG
+
+### 0.1.1
+
+- Fix handling of furigana so it gets stripped out by default
+
+### 0.1.0
+
+- Initial release

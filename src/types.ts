@@ -46,7 +46,18 @@ export interface ExtractWebContentOptions {
 	parseAsyncTimeoutMs?: number | null;
 }
 
+/** How to represent `<ruby>` / `<rt>` furigana in plain text. */
+export type FuriganaMode = 'STRIP' | 'INCLUDE_IN_BRACES' | 'AS_IS';
+
 /** Options for plain-text extraction (same as web content, plus optional parser). */
 export type ExtractPlainTextOptions = ExtractWebContentOptions & {
 	documentParser?: DocumentParser;
+	/** Default: `STRIP` (omit furigana). */
+	furigana?: FuriganaMode;
 };
+
+/** Options for {@link htmlFragmentToPlainText}. */
+export interface PlainTextOptions {
+	/** Default: `STRIP` (omit furigana). */
+	furigana?: FuriganaMode;
+}

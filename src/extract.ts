@@ -1,7 +1,7 @@
 import * as DefuddleNS from 'defuddle';
 import * as DefuddleFullNS from 'defuddle/full';
 import { buildCleanFullHtml } from './clean-html.js';
-import { htmlFragmentToPlainText } from './plain-text.js';
+import { htmlFragmentToPlainText, restoreRubyMarkup } from './plain-text.js';
 import { parseDocumentForClip } from './reader.js';
 import type {
 	DocumentParser,
@@ -151,7 +151,12 @@ export async function extractPlainTextFromDocument(
 ): Promise<string> {
 	const articleHtml = await extractArticleHtmlFromDocument(doc, options);
 	const parser = options.documentParser ?? getDefaultDocumentParser();
-	return htmlFragmentToPlainText(articleHtml, parser);
+	const furigana = options.furigana ?? 'STRIP';
+	const html =
+		furigana === 'AS_IS'
+			? articleHtml
+			: restoreRubyMarkup(doc, articleHtml, parser);
+	return htmlFragmentToPlainText(html, parser, { furigana: options.furigana });
 }
 
 /** Parse HTML, then run {@link extractPlainTextFromDocument}. */

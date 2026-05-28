@@ -3,7 +3,9 @@ export type {
 	ExtractedWebContent,
 	ExtractPlainTextOptions,
 	ExtractWebContentOptions,
+	FuriganaMode,
 	MetaTag,
+	PlainTextOptions,
 } from './types.js';
 export {
 	extractPlainTextFromDocument,

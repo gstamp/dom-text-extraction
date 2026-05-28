@@ -1,6 +1,6 @@
 {
   "name": "dom-text-extraction",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Extract readable article content and metadata from HTML (Defuddle-powered, Obsidian Clipper–style pipeline)",
   "license": "MIT",
   "author": "Glen Stampoultzis",
@@ -20,7 +20,7 @@
     "build": "tsc",
     "watch": "tsc --watch",
     "typecheck": "tsc --noEmit",
-    "test": "node --test"
+    "test": "npm run build && node --test"
   },
   "dependencies": {
     "defuddle": "^0.18.1"
